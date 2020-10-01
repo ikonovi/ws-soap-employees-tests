@@ -1,6 +1,6 @@
-package ik.soaptest.db;
+package ik.soaptest.soaptest.db;
 
-import ik.soaptest.models.BaseSalary;
+import ik.soaptest.soaptest.models.BaseSalary;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

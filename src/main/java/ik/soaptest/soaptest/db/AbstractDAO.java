@@ -1,4 +1,4 @@
-package ik.soaptest.db;
+package ik.soaptest.soaptest.db;
 
 import com.microsoft.sqlserver.jdbc.SQLServerXADataSource;
 

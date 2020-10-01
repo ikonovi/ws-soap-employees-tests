@@ -1,4 +1,4 @@
-package ik.soaptest.ws;
+package ik.soaptest.soaptest.ws;
 
 import java.util.StringJoiner;
 

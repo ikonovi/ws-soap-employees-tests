@@ -1,9 +1,9 @@
-package ik.soaptest.ws;
+package ik.soaptest.soaptest.ws;
 
-import ik.soaptest.models.Employee;
-import ik.soaptest.service.EmployeeService;
-import ik.soaptest.xml.sax.AddEmployeeHandler;
-import ik.soaptest.xml.sax.GetEmployeeHandler;
+import ik.soaptest.soaptest.models.Employee;
+import ik.soaptest.soaptest.service.EmployeeService;
+import ik.soaptest.soaptest.xml.sax.AddEmployeeHandler;
+import ik.soaptest.soaptest.xml.sax.GetEmployeeHandler;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;

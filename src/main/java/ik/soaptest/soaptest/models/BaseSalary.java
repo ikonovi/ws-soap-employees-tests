@@ -1,6 +1,6 @@
-package ik.soaptest.models;
+package ik.soaptest.soaptest.models;
 
-import ik.soaptest.db.BaseSalaryDAO;
+import ik.soaptest.soaptest.db.BaseSalaryDAO;
 
 import java.util.Objects;
 import java.util.StringJoiner;

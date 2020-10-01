@@ -1,4 +1,4 @@
-package ik.soaptest.xml.sax;
+package ik.soaptest.soaptest.xml.sax;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

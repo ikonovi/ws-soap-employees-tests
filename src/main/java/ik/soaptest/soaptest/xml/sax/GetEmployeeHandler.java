@@ -1,7 +1,7 @@
-package ik.soaptest.xml.sax;
+package ik.soaptest.soaptest.xml.sax;
 
-import ik.soaptest.models.BaseSalary;
-import ik.soaptest.models.Employee;
+import ik.soaptest.soaptest.models.BaseSalary;
+import ik.soaptest.soaptest.models.Employee;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

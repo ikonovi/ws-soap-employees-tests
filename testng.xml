@@ -11,14 +11,14 @@
         <parameter name="experienceInYears" value="10"/>
         <parameter name="professionId" value="6"/>
         <classes>
-            <class name="ik.EmployeeTest1"/>
+            <class name="ik.soaptest.EmployeeTest1"/>
         </classes>
     </test>
 
     <test name="4. Проверить поиск работника по PrivateID." enabled="true">
         <parameter name="employeePrivateId" value="u299"/>
         <classes>
-            <class name="ik.EmployeeTest4"/>
+            <class name="ik.soaptest.EmployeeTest4"/>
         </classes>
     </test>
 </suite>

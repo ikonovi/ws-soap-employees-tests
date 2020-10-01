@@ -1,7 +1,7 @@
-package ik;
+package ik.soaptest;
 
-import ik.soaptest.models.Employee;
-import ik.soaptest.ws.WsClient;
+import ik.soaptest.soaptest.models.Employee;
+import ik.soaptest.soaptest.ws.WsClient;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;

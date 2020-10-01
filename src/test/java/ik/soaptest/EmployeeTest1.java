@@ -1,9 +1,9 @@
-package ik;
+package ik.soaptest;
 
-import ik.soaptest.db.EmployeeDAO;
-import ik.soaptest.models.Employee;
-import ik.soaptest.ws.WsAddEmployeeResponse;
-import ik.soaptest.ws.WsClient;
+import ik.soaptest.soaptest.db.EmployeeDAO;
+import ik.soaptest.soaptest.models.Employee;
+import ik.soaptest.soaptest.ws.WsAddEmployeeResponse;
+import ik.soaptest.soaptest.ws.WsClient;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -19,7 +19,7 @@ public class EmployeeTest1 {
     public void beforeClass() {
         wsClient = new WsClient();
         employeeDao = new EmployeeDAO();
-        // Primary Key
+        // Primary Key for a new record in database table.
         id = ThreadLocalRandom.current().nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
@@ -29,7 +29,6 @@ public class EmployeeTest1 {
                                    int experienceInYears, int professionId) {
         Employee newEmployee = new Employee(id, privateId, firstName, lastName, middleName, experienceInYears, professionId);
         WsAddEmployeeResponse wsResponse = wsClient.AddNewEmployee(newEmployee);
-
         Assert.assertEquals(wsResponse.getHttpStatusCode(), 200, "HTTP response status code");
         Assert.assertEquals(wsResponse.getResultMessage(), "Данные добавлены успешно", "Result message");
 
@@ -39,6 +38,6 @@ public class EmployeeTest1 {
 
     @AfterClass
     public void afterClass() {
-
+        employeeDao.deleteEmployeeById(id);
     }
 }

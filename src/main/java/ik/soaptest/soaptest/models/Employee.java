@@ -1,4 +1,4 @@
-package ik.soaptest.models;
+package ik.soaptest.soaptest.models;
 
 import java.util.Objects;
 import java.util.StringJoiner;

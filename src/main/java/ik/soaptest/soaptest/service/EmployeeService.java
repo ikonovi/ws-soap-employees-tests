@@ -1,8 +1,8 @@
-package ik.soaptest.service;
+package ik.soaptest.soaptest.service;
 
-import ik.soaptest.models.Employee;
-import ik.soaptest.xml.sax.AddEmployeeHandler;
-import ik.soaptest.xml.sax.GetEmployeeHandler;
+import ik.soaptest.soaptest.models.Employee;
+import ik.soaptest.soaptest.xml.sax.AddEmployeeHandler;
+import ik.soaptest.soaptest.xml.sax.GetEmployeeHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 

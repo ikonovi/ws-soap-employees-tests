@@ -1,7 +1,7 @@
-package ik.soaptest.db;
+package ik.soaptest.soaptest.db;
 
-import ik.soaptest.models.BaseSalary;
-import ik.soaptest.models.Employee;
+import ik.soaptest.soaptest.models.BaseSalary;
+import ik.soaptest.soaptest.models.Employee;
 
 import java.sql.*;
 
@@ -17,12 +17,25 @@ public class EmployeeDAO extends AbstractDAO {
             "sal.[id] sal_id, " +
             "sal.[salary_amount], " +
             "sal.[prof_name] " +
-        "FROM employees emp " +
-        "JOIN base_salaries sal ON sal.[id] = emp.[profession_id]" +
+        "FROM [dbo].[employees] emp " +
+        "JOIN [dbo].[base_salaries] sal ON sal.[id] = emp.[profession_id]" +
         "WHERE emp.[id] = ?";
+
+    private String deleteEmployeeByIdQuery = "DELETE FROM [dbo].[employees] where id = ?";
 
     public EmployeeDAO() {
         super();
+    }
+
+    public void deleteEmployeeById(int id) {
+        try (Connection conn = pooledConn.getConnection();
+             PreparedStatement pst = conn.prepareStatement(deleteEmployeeByIdQuery)) {
+            pst.setInt(1, id);
+            int rowCount = pst.executeUpdate();
+            System.out.println("Deleted rows: " + rowCount);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public Employee selectEmployeeById(int id) {
@@ -51,5 +64,4 @@ public class EmployeeDAO extends AbstractDAO {
         System.out.println("Fetched from DB: " + employee);
         return employee;
     }
-
 }
