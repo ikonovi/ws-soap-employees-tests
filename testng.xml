@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Testing SOAP web-service">
+
+    <test name="1. Добавить нового работника с валидными значениями." enabled="true" >
+        <parameter name="privateId" value="513"/>
+        <parameter name="firstName" value="Petr"/>
+        <parameter name="lastName" value="Petrov"/>
+        <parameter name="middleName" value="Petrovich"/>
+        <parameter name="experienceInYears" value="10"/>
+        <parameter name="professionId" value="6"/>
+        <classes>
+            <class name="ik.EmployeeTest1"/>
+        </classes>
+    </test>
+
+    <test name="4. Проверить поиск работника по PrivateID." enabled="true">
+        <parameter name="employeePrivateId" value="u299"/>
+        <classes>
+            <class name="ik.EmployeeTest4"/>
+        </classes>
+    </test>
+</suite>
