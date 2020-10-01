@@ -66,7 +66,12 @@ public class WsClient {
         return wsResponse;
     }
 
-    public Employee GetEmpByPI(String privateId) { // TODO: add response object
+    /**
+     * Get employee by private ID.
+     *
+     */
+    public WsGetEmpByPiResponse GetEmpByPi(String privateId) {
+        WsGetEmpByPiResponse wsResponse = new WsGetEmpByPiResponse();
         StringEntity reqBodyEntity = new StringEntity(
                 "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"Service\">\n" +
                         "   <soapenv:Header/>\n" +
@@ -78,21 +83,20 @@ public class WsClient {
                         "</soapenv:Envelope>", ContentType.TEXT_XML);
         HttpPost request = SoapPostRequest("Service/GetEmpByPI", reqBodyEntity);
 
-        try (CloseableHttpResponse response = client.execute(request)) {
-            int statusCode = response.getStatusLine().getStatusCode();
-            if (statusCode == 200) {
-                HttpEntity respEntity = response.getEntity();
+        try (CloseableHttpResponse httpResponse = client.execute(request)) {
+            wsResponse.setHttpStatusCode(httpResponse.getStatusLine().getStatusCode());
+                HttpEntity respEntity = httpResponse.getEntity();
                 String xmlDocumentContent = EntityUtils.toString(respEntity);
-                // parse
+                // parse XML doc
                 GetEmployeeHandler handler = new GetEmployeeHandler();
                 employees = employeeService.getEmployeesFromXml(xmlDocumentContent, handler);
-                //employees.stream().forEach(System.out::println);
-            }
+                wsResponse.setEmployee(employees.get(0));
+                wsResponse.setResultMessage(employees.get(0).getPrivateId());
+                System.out.println("WS returned " + employees.get(0));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return employees.get(0);
+        return wsResponse;
     }
 
     private HttpPost SoapPostRequest(String soapActionHeader, StringEntity reqBodyEntity) {
