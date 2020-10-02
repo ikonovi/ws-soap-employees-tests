@@ -23,8 +23,8 @@ public class EmployeeTest1 {
         id = ThreadLocalRandom.current().nextInt(Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
-    @Parameters({"privateId", "firstName", "lastName", "middleName", "experienceInYears", "professionId"})
     @Test
+    @Parameters({"privateId", "firstName", "lastName", "middleName", "experienceInYears", "professionId"})
     public void testAddNewEmployee(String privateId, String firstName, String lastName, String middleName,
                                    int experienceInYears, int professionId) {
         Employee newEmployee = new Employee(id, privateId, firstName, lastName, middleName, experienceInYears, professionId);
@@ -36,7 +36,7 @@ public class EmployeeTest1 {
         Assert.assertEquals(persistedEmployee, newEmployee);
     }
 
-    @AfterClass
+    //@AfterClass
     public void afterClass() {
         employeeDao.deleteEmployeeById(id);
     }

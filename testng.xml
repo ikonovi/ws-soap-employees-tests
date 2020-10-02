@@ -4,7 +4,7 @@
 <suite name="Testing SOAP web-service">
 
     <test name="1. Добавить нового работника с валидными значениями.">
-        <parameter name="privateId" value="513"/>
+        <parameter name="privateId" value="h513"/>
         <parameter name="firstName" value="Petr"/>
         <parameter name="lastName" value="Petrov"/>
         <parameter name="middleName" value="Petrovich"/>
@@ -14,15 +14,29 @@
             <class name="ik.soaptest.EmployeeTest1"/>
         </classes>
     </test>
+
     <test name="3. Добавить работника, когда 1 из параметров не задан (по очереди каждый из параметров).">
         <classes>
             <class name="ik.soaptest.EmployeeTest3"/>
         </classes>
     </test>
+
     <test name="4. Проверить поиск работника по PrivateID.">
         <parameter name="employeePrivateId" value="u299"/>
         <classes>
             <class name="ik.soaptest.EmployeeTest4"/>
         </classes>
     </test>
+
+    <test name="5. Проверить расчет ЗП в случае если сотрудник отработал полный рабочий месяц без больничных, переработок и льгот">
+        <parameter name="employeePrivateId" value="s032"/>
+        <parameter name="month" value="11-2013"/>
+        <parameter name="sickDays" value="0"/>
+        <parameter name="overDays" value="0"/>
+        <parameter name="isPrivileges" value="0"/>
+        <classes>
+            <class name="ik.soaptest.EmployeeTest5"/>
+        </classes>
+    </test>
+
 </suite>

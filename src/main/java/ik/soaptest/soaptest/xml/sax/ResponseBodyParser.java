@@ -1,8 +1,9 @@
-package ik.soaptest.soaptest.service;
+package ik.soaptest.soaptest.xml.sax;
 
 import ik.soaptest.soaptest.models.Employee;
 import ik.soaptest.soaptest.xml.sax.AddEmployeeHandler;
 import ik.soaptest.soaptest.xml.sax.GetEmployeeHandler;
+import ik.soaptest.soaptest.xml.sax.GetEmployeeSalaryHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -13,7 +14,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class EmployeeService {
+public class ResponseBodyParser {
+
+    public String getEmployeeSalaryFromXml(String xmlDocContent, GetEmployeeSalaryHandler handler) {
+        parseXml(xmlDocContent, handler);
+        return handler.getEmployeeSalaryResult();
+    }
 
     public List<Employee> getEmployeesFromXml(String xmlDocContent, GetEmployeeHandler handler) {
         parseXml(xmlDocContent, handler);
