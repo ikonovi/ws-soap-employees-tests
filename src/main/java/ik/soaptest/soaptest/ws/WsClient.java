@@ -25,30 +25,38 @@ public class WsClient {
     private List<Employee> employees;
     private CloseableHttpClient client;
 
+    /**
+     * Create new Employee
+     *
+     * @param employee
+     * @return custom response suitable for verification in test.
+     * NOTE: to pass empty Employee field value in request, set it 0.
+     */
     public WsAddEmployeeResponse AddNewEmployee(Employee employee) {
-        System.out.println("WebService is going to create " + employee);
+        System.out.println("AddNewEmployee: " + employee);
         WsAddEmployeeResponse wsResponse = new WsAddEmployeeResponse();
-        StringEntity reqBodyEntity = new StringEntity(
-                "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"Service\">\n" +
-                        "   <soapenv:Header/>\n" +
-                        "   <soapenv:Body>\n" +
-                        "      <ser:AddNewEmployee>\n" +
-                        "         <!--Optional:-->\n" +
-                        "         <ser:newID>" + employee.getId() + "</ser:newID>\n" +
-                        "         <!--Optional:-->\n" +
-                        "         <ser:newPrivate_id>" + employee.getPrivateId() + "</ser:newPrivate_id>\n" +
-                        "         <!--Optional:-->\n" +
-                        "         <ser:newFirst_name>" + employee.getFirstName() + "</ser:newFirst_name>\n" +
-                        "         <!--Optional:-->\n" +
-                        "         <ser:newLast_name>" + employee.getLastName() + "</ser:newLast_name>\n" +
-                        "         <!--Optional:-->\n" +
-                        "         <ser:newMiddle_name>" + employee.getMiddleName() + "</ser:newMiddle_name>\n" +
-                        "         <!--Optional:-->\n" +
-                        "         <ser:newExp>" + employee.getExperienceInYears() + "</ser:newExp>\n" +
-                        "         <ser:newProfession_id>" + employee.getBaseSalary().getId() + "</ser:newProfession_id>\n" +
-                        "      </ser:AddNewEmployee>\n" +
-                        "   </soapenv:Body>\n" +
-                        "</soapenv:Envelope>", ContentType.TEXT_XML);
+
+        // Numeric value of 0 means "" empty element value in Xml.
+        String newId = employee.getId() == 0 ? "" : String.valueOf(employee.getId());
+        String newExp = employee.getExperienceInYears() == 0 ? "" : String.valueOf(employee.getExperienceInYears());
+        String newProfessionId = employee.getBaseSalary().getId() == 0 ? "" : String.valueOf(employee.getBaseSalary().getId());
+
+        String envelopeXml = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:ser=\"Service\">\n" +
+                "   <soapenv:Header/>\n" +
+                "   <soapenv:Body>\n" +
+                "      <ser:AddNewEmployee>\n" +
+                "         <ser:newID>" + newId + "</ser:newID>\n" +
+                "         <ser:newPrivate_id>" + employee.getPrivateId() + "</ser:newPrivate_id>\n" +
+                "         <ser:newFirst_name>" + employee.getFirstName() + "</ser:newFirst_name>\n" +
+                "         <ser:newLast_name>" + employee.getLastName() + "</ser:newLast_name>\n" +
+                "         <ser:newMiddle_name>" + employee.getMiddleName() + "</ser:newMiddle_name>\n" +
+                "         <ser:newExp>" + newExp + "</ser:newExp>\n" +
+                "         <ser:newProfession_id>" + newProfessionId + "</ser:newProfession_id>\n" +
+                "      </ser:AddNewEmployee>\n" +
+                "   </soapenv:Body>\n" +
+                "</soapenv:Envelope>";
+        System.out.println("Request body: " + envelopeXml);
+        StringEntity reqBodyEntity = new StringEntity(envelopeXml, ContentType.TEXT_XML);
         HttpPost request = SoapPostRequest("Service/AddNewEmployee", reqBodyEntity);
 
         try (CloseableHttpResponse response = client.execute(request)) {
@@ -68,7 +76,6 @@ public class WsClient {
 
     /**
      * Get employee by private ID.
-     *
      */
     public WsGetEmpByPiResponse GetEmpByPi(String privateId) {
         WsGetEmpByPiResponse wsResponse = new WsGetEmpByPiResponse();
@@ -85,14 +92,14 @@ public class WsClient {
 
         try (CloseableHttpResponse httpResponse = client.execute(request)) {
             wsResponse.setHttpStatusCode(httpResponse.getStatusLine().getStatusCode());
-                HttpEntity respEntity = httpResponse.getEntity();
-                String xmlDocumentContent = EntityUtils.toString(respEntity);
-                // parse XML doc
-                GetEmployeeHandler handler = new GetEmployeeHandler();
-                employees = employeeService.getEmployeesFromXml(xmlDocumentContent, handler);
-                wsResponse.setEmployee(employees.get(0));
-                wsResponse.setResultMessage(employees.get(0).getPrivateId());
-                System.out.println("WS returned " + employees.get(0));
+            HttpEntity respEntity = httpResponse.getEntity();
+            String xmlDocumentContent = EntityUtils.toString(respEntity);
+            // parse XML doc
+            GetEmployeeHandler handler = new GetEmployeeHandler();
+            employees = employeeService.getEmployeesFromXml(xmlDocumentContent, handler);
+            wsResponse.setEmployee(employees.get(0));
+            wsResponse.setResultMessage(employees.get(0).getPrivateId());
+            System.out.println("WS returned " + employees.get(0));
         } catch (IOException e) {
             e.printStackTrace();
         }
