@@ -7,11 +7,11 @@ import java.sql.SQLException;
 
 abstract class AbstractDAO {
 
-    private final static String host = "A1QA-TASKS-1";
-    private final static String port = "1433";
-    private final static String dbName = "ServiceDB";
-    private final static String user = "TESTSRV";
-    private final static String pwd = "123qweASD";
+    private final static String host = "";
+    private final static String port = "";
+    private final static String dbName = "";
+    private final static String user = "";
+    private final static String pwd = "";
     protected PooledConnection pooledConn;
 
     public AbstractDAO() {
